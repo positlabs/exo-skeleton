@@ -20,22 +20,23 @@ module.exports = function (grunt) {
 			templates:{
 				files:[
 					"Gruntfile.js",
-					"app/templates/*.jade"
+					"app/templates/**/*.jade"
 				],
-				tasks: "grunt-jade"
+				tasks: "jade"
 			}
 		},
 
-		"jade": {
-			"debug": {
-				"files": {
-					"app/templates/compiled/": ["app/templates/*.jade"]
+		jade: {
+			compile: {
+				options: {
+					compileDebug:false,
+					data: {
+						debug: false
+					},
+					client:true
 				},
-				"options": {
-					"compileDebug": true,
-					"locals": {
-						compileTime:function(){return Date.now();}
-					}
+				files: {
+					"app/templates/jade_tmpls.js": ["app/templates/*.jade"]
 				}
 			}
 		},
@@ -60,18 +61,11 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks("grunt-contrib-watch");
 
 	// Third-party tasks.
-	grunt.loadNpmTasks('grunt-jade');
-
-//	grunt.registerTask("watch", [
-//		"jade", "templates", "watch"
-//		"watch"
-//	]);
-
-	grunt.registerTask("grunt-contrib-less", ["lessc"]);
-	// compile jade templates
-	grunt.registerTask("grunt-jade", ["jade"]);
+	grunt.loadNpmTasks('grunt-contrib-jade');
 
 	// When running the default Grunt command, just lint the code.
 	grunt.registerTask("default", ["jshint"]);
+
+	//TODO - compiling
 
 };

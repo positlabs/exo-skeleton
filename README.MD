@@ -1,8 +1,19 @@
-//TODO: write about all of the stuff that exo-skeleton comes with
-//TODO: clean up FJ and bower install it
+TODO: write about all of the stuff that exo-skeleton comes with
+TODO: pull components from FJ
 
-Watching files.
+TODO: install layoutmanager
+https://github.com/tbranyen/backbone.layoutmanager/wiki
+
+Dev flow.
 ------------------
-The files that require preprocessing will be handled by the grunt watch command.
+`grunt watch`: watch files that need to be pre-processed (.less, .jade).
 
-Currently .less and .jade files are processed with this command.
+
+LESS CSS
+------------------
+http://lesscss.org/
+
+
+Jade HTML
+------------------
+http://jade-lang.com/reference/
