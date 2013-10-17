@@ -1,5 +1,7 @@
-site/dist/
-site/bower_components/
+dist/
+bower_components/
 node_modules/
-site/app/styles/*.css
-site/app/templates/compiled/
+app/styles/*.css
+app/templates/compiled/
+.DS_Store
+.idea/
