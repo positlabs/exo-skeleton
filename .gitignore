@@ -1,5 +1,5 @@
 dist/
-bower_components/
+app/js/bower/
 node_modules/
 app/styles/*.css
 app/templates/compiled/

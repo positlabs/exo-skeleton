@@ -75,6 +75,7 @@ module.exports = function (grunt) {
 
 	// start watching. do initial pre-process of files
 	grunt.registerTask("watcher", ["jade", "less", "watch"]);
+	grunt.registerTask("server", ["connect"]);
 
 	// start server, watch files
 	grunt.registerTask("default", ["watch"]);

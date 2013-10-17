@@ -3,20 +3,15 @@ require.config({
 	paths: {
 
 		"jquery": "bower/jquery/jquery.min",
-		"backbone": "bower/backbone/backbone-min",
-		"underscore": "bower/underscore/underscore-min",
+		"backbone": "bower/backbone-amd/backbone",
+		"underscore": "bower/underscore-amd/underscore",
 		"modernizr": "bower/modernizr/modernizr",
-		"conditionizr": "bower/conditionizr/src/conditionizr"
+		"conditionizr": "bower/conditionizr/src/conditionizr",
+		"jade": "../../node_modules/jade/runtime"
 
 	},
 	shim:{
 		'jquery' : {
-			"deps":[
-//				"json3"
-			]
-		},
-		'backbone':{
-			export:"Backbone"
 		}
 	}
 

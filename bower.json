@@ -5,14 +5,14 @@
   "authors": [
     "Josh <josh@positlabs.com>"
   ],
-	"dependencies": {
+  "dependencies": {
     "requirejs": "~2.1.8",
-    "backbone": "~1.0.0",
     "layoutmanager": "~0.9.3",
-    "underscore": "~1.5.2",
     "jquery": "~2.0.3",
     "modernizr": "~2.6.2",
     "conditionizr": "*",
-    "html5-boilerplate": "https://github.com/h5bp/html5-boilerplate.git#~4.3.0"
+    "html5-boilerplate": "https://github.com/h5bp/html5-boilerplate.git#~4.3.0",
+    "backbone-amd": "~1.1.0",
+    "underscore-amd": "~1.5.2"
   }
 }

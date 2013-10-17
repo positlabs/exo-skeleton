@@ -8,11 +8,15 @@ define(["require_config"], function (config) {
 		"underscore",
 		"jquery",
 		"backbone",
+		"../templates/runtime",
 		"../templates/jade_jst"
 
-	], function(App, Router) {
+	], function(App, Router, _, $, Backbone, jade) {
 
-		var app = new App();
+		// make jade available to the JST render functions
+		window.jade = jade;
+
+		var app = App;
 
 			$.ajax({
 				dataType: "json",
@@ -25,11 +29,10 @@ define(["require_config"], function (config) {
 				});
 
 			function startApp() {
-				// app.ui.render();
 
 				// Trigger the initial route and enable HTML5 History API support, set the
 				// root folder to '/' by default.  Change in app.js.
-				app.listenToOnce(app.main, "afterRender", function () {
+				app.listenToOnce(app.main, "render", function () {
 
 					Backbone.history.start({
 						// pushState: true,
@@ -41,7 +44,7 @@ define(["require_config"], function (config) {
 				// Define your master router on the application namespace and trigger all
 				// navigation from this instance.
 				app.router = new Router();
-				app.router.init();
+				app.main.render();
 
 			}
 		})
