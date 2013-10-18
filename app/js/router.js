@@ -1,26 +1,30 @@
 define(function (require, exports, module) {
 
 	require('modernizr');
-	require("backbone");
+	require('conditionizr');
 
 	var app = require('app');
-	var Tracking = require('services/Tracking');
 	var Index = require('views/Index');
+	var Tracking = require('services/Tracking');
 
 	// Defining the application router, you can attach sub routers here.
 	var Router = Backbone.Router.extend({
-		initialize:function(){
-			this.on("route", this.onRoute);
-		},
 		routes: {
 			"": "index",
-			'*path': 'index'
-//			"(/:id)": "portrait",
+			'*path': 'unknown'
+		},
+		initialize:function(){
+			console.log("Router."+"initialize()", arguments);
+		},
+		unknown: function(route){
+			console.warn("Router."+"unknown()", route);
+			// console.log("Didn't find the route ", Backbone.history.fragment , ". Going to the intro.");
+
+			this.navigate("", {
+				trigger: true
+			});
 		},
 		index: function () {
-			console.log("index");
-
-//			Tracking.trackPageview("landing");
 		}
 
 	});

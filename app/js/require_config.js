@@ -4,6 +4,7 @@ require.config({
 
 		"jquery": "bower/jquery/jquery.min",
 		"backbone": "bower/backbone-amd/backbone",
+		"layoutmanager": "bower/layoutmanager/backbone.layoutmanager",
 		"underscore": "bower/underscore-amd/underscore",
 		"modernizr": "bower/modernizr/modernizr",
 		"conditionizr": "bower/conditionizr/src/conditionizr",
@@ -11,7 +12,12 @@ require.config({
 
 	},
 	shim:{
-		'jquery' : {
+		jquery : {
+		},
+		layoutmanager:{
+			deps:[
+				"backbone"
+			]
 		}
 	}
 

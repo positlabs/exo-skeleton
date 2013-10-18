@@ -13,9 +13,7 @@ define(function(require, exports, module) {
 				_.each(accounts, function(accountId, i){
 					var label = _this.accountLabels[i];
 					_this.accounts[label] = accountId;
-					_setAccount = [label + "._setAccount",accountId];
-					window._gaq.push(_setAccount);
-					console.log(_setAccount)
+					window._gaq.push([label + "._setAccount", accountId]);
 				});
 				return _this;
 			};
@@ -54,7 +52,6 @@ define(function(require, exports, module) {
 		var Tracking = {
 			trackers: {},
 			init: function(){
-				console.log("Tracking."+"init()", arguments);
 				this.trackers.ga = new GoogleAnalytics(document, window);
 				var id = "UA-XXXXXXX";
 				// window.env == "dev" ? id += "2" : id += "1";
@@ -72,9 +69,6 @@ define(function(require, exports, module) {
 				_.each(this.trackers, function(tracker){
 					tracker.trackEvent(args);
 				});
-			},
-			report: function(){
-				console.log('-- Tracking Report', arguments);
 			}
 		};
 		return Tracking;

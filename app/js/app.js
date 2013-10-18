@@ -1,15 +1,12 @@
 define(function (require, exports, module) {
-	require("backbone");
-	require("underscore");
-	require("jquery");
 
 	// External dependencies.
 	var constants = require('../data/constants');
 	var Webapp = require('Webapp');
+	var Tracking = require("services/Tracking");
+	var Router = require("router");
 
-//	var Tracking = require("services/Tracking");
-//
-//	Tracking.init();
+	Tracking.init();
 
 	// Provide a global location to place configuration settings and module
 	// creation.
@@ -21,7 +18,7 @@ define(function (require, exports, module) {
 	var app = _.extend({}, Backbone.Events);
 	window.app = app;
 
-	app.root = "";
+	app.root = "/";
 	app.dataRoot = "data/";
 	app.constants = constants;
 
@@ -75,19 +72,43 @@ define(function (require, exports, module) {
 		app.onResize();
 	});
 
-	var Main = Backbone.View.extend({
-		el: "#main",
-		template: "main",
-//			events: {
+	app.initialize = function () {
+		app.onResize();
+
+		// Define your master router on the application namespace and trigger all
+		// navigation from this instance.
+		app.router = new Router();
+
+		// Trigger the initial route and enable HTML5 History API support, set the
+		// root folder to '/' by default.  Change in app.js.
+		Backbone.history.start({
+			// pushState: true,
+			root: app.root
+		});
+
+		var Main = Backbone.Layout.extend({
+
+			el: "#main",
+			template: 'main',
+			initialize:function(){
+				console.log("Main."+"initialize()", arguments);
+				this.on("afterRender", function(){console.log('afterRender')})
+			},
+//			render: function () {
+//				this.el.innerHTML = JST[this.template](this.serialize());
 //			},
-//			initialize:function(){
-//
-//			},
-		render: function () {
-			this.el.innerHTML = JST[this.template]({});
-		}
-	});
-	app.main = new Main();
+			afterRender:function(){
+				console.log("Main."+"afterRender()", arguments);
+			},
+			serialize: function () {
+				return _.extend({}, app.copy);
+			}
+		});
+
+		app.main = new Main();
+		app.main.render();
+
+	};
 
 	return app;
 });

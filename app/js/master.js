@@ -9,43 +9,34 @@ define(["require_config"], function (config) {
 		"jquery",
 		"backbone",
 		"../templates/runtime",
-		"../templates/jade_jst"
+		"../templates/jade_jst",
+		"layoutmanager"
 
-	], function(App, Router, _, $, Backbone, jade) {
+	], function (app, Router, _, $, Backbone, jade, jst, LayoutManager) {
 
-		// make jade available to the JST render functions
+		window.Backbone = Backbone;
+		window._ = _;
+		window.LayoutManager = LayoutManager;
 		window.jade = jade;
 
-		var app = App;
-
-			$.ajax({
-				dataType: "json",
-				url: "data/copy_en.json"
-			}).done(function (response) {
-					app.copy = response;
-					startApp();
-				}).fail(function (response) {
-					console.error("Failed to get Site Copy: ", response.responseText);
-				});
-
-			function startApp() {
-
-				// Trigger the initial route and enable HTML5 History API support, set the
-				// root folder to '/' by default.  Change in app.js.
-				app.listenToOnce(app.main, "render", function () {
-
-					Backbone.history.start({
-						// pushState: true,
-						root: app.root
-					});
-					app.onResize();
-
-				});
-				// Define your master router on the application namespace and trigger all
-				// navigation from this instance.
-				app.router = new Router();
-				app.main.render();
-
+		// Configure LayoutManager with Backbone Boilerplate defaults.
+		Backbone.Layout.configure({
+			// Allow LayoutManager to augment Backbone.View.prototype.
+			manage: true,
+			fetch: function (path) {
+				console.log("path", path);
+				return JST[path];
 			}
-		})
-	});
+		});
+
+		$.ajax({
+			dataType: "json",
+			url: "data/copy_en.json"
+		}).done(function (response) {
+				app.copy = response;
+				app.initialize();
+			}).fail(function (response) {
+				console.error("Failed to get Site Copy: ", response.responseText);
+			});
+	})
+});
