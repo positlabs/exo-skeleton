@@ -10,21 +10,25 @@ define(["require_config"], function (config) {
 		"backbone",
 		"../templates/runtime",
 		"../templates/jade_jst",
-		"layoutmanager"
+		"backbone.layoutmanager"
 
-	], function (app, Router, _, $, Backbone, jade, jst, LayoutManager) {
+	], function (app, Router, _, $, Backbone, jade, jst) {
 
-		window.Backbone = Backbone;
 		window._ = _;
-		window.LayoutManager = LayoutManager;
+		window.$ = $;
 		window.jade = jade;
+		window.Backbone = Backbone;
 
 		// Configure LayoutManager with Backbone Boilerplate defaults.
 		Backbone.Layout.configure({
 			// Allow LayoutManager to augment Backbone.View.prototype.
 			manage: true,
 			fetch: function (path) {
-				console.log("path", path);
+				console.log("fetch."+"fetch()", arguments);
+				return JST[path];
+			},
+			fetchTemplate:function(path){
+				console.log("fetchTemplate."+"fetchTemplate()", arguments);
 				return JST[path];
 			}
 		});

@@ -2,8 +2,8 @@ define(function (require, exports, module) {
 
 	require('modernizr');
 	require('conditionizr');
+    require('app');
 
-	var app = require('app');
 	var Index = require('views/Index');
 	var Tracking = require('services/Tracking');
 
@@ -14,17 +14,21 @@ define(function (require, exports, module) {
 			'*path': 'unknown'
 		},
 		initialize:function(){
-			console.log("Router."+"initialize()", arguments);
 		},
 		unknown: function(route){
 			console.warn("Router."+"unknown()", route);
-			// console.log("Didn't find the route ", Backbone.history.fragment , ". Going to the intro.");
 
 			this.navigate("", {
 				trigger: true
 			});
 		},
 		index: function () {
+			console.log("Router."+"index()", arguments);
+			console.log("Index",Index);
+
+			var indexView = new Index();
+			app.main.insertView(indexView);
+			indexView.render();
 		}
 
 	});

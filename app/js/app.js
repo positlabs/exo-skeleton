@@ -6,6 +6,12 @@ define(function (require, exports, module) {
 	var Tracking = require("services/Tracking");
 	var Router = require("router");
 
+	var Backbone = require("backbone");
+	var Layout = require("backbone.layoutmanager");
+
+	var MainView = require("views/Main");
+
+
 	Tracking.init();
 
 	// Provide a global location to place configuration settings and module
@@ -59,7 +65,6 @@ define(function (require, exports, module) {
 		app.trigger('resize');
 	};
 
-	var $window = $(window);
 	$window.on('resize', _.debounce(app.onResize, 500));
 
 	//resize on window focus because in safari if a video starts when the window is not focused, it will not size correctly.
@@ -79,34 +84,14 @@ define(function (require, exports, module) {
 		// navigation from this instance.
 		app.router = new Router();
 
-		// Trigger the initial route and enable HTML5 History API support, set the
-		// root folder to '/' by default.  Change in app.js.
-		Backbone.history.start({
-			// pushState: true,
-			root: app.root
+		app.main = new MainView();
+		app.main.once('afterRender', function(){
+			Backbone.history.start({
+				root: app.root
+			});
 		});
-
-		var Main = Backbone.Layout.extend({
-
-			el: "#main",
-			template: 'main',
-			initialize:function(){
-				console.log("Main."+"initialize()", arguments);
-				this.on("afterRender", function(){console.log('afterRender')})
-			},
-//			render: function () {
-//				this.el.innerHTML = JST[this.template](this.serialize());
-//			},
-			afterRender:function(){
-				console.log("Main."+"afterRender()", arguments);
-			},
-			serialize: function () {
-				return _.extend({}, app.copy);
-			}
-		});
-
-		app.main = new Main();
 		app.main.render();
+
 
 	};
 

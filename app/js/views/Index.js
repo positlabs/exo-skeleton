@@ -1,13 +1,13 @@
-define(function(require, exports, module) {
-
-	var Backbone = require("backbone");
-	var _ = require("underscore");
-	var $ = require("jquery");
+define(function (require, exports, module) {
 
 	var index = Backbone.View.extend({
 
+		template: "index",
+		initialize: function(){},
+		afterRender: function(){}
 
+	});
 
-		});
+	return index;
 
 });
