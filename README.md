@@ -5,7 +5,7 @@ Project scaffolding for web apps. It also comes with some optional goodies.
 
 Using exo-skeleton
 -----------------
-Use Yeoman to generate the exo-skeleton scaffolding. There is no need to fork this repository.
+Use [Yeoman][1] to generate the exo-skeleton scaffolding. There is no need to fork this repository.
 
 1. Install the generator.
   `npm install -g generator-exo-skeleton`
@@ -29,3 +29,5 @@ Included in exo-skeleton
 * JADE HTML: http://jade-lang.com/reference/
 * Underscore: http://underscorejs.org
 * jQuery: http://jquery.com/
+
+[1]: http://yeoman.io/ "Yeoman"
