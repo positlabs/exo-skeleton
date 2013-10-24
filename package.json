@@ -3,19 +3,16 @@
     "grunt": "~0.4.1"
   },
   "name": "exo-skeleton",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "repository": "https://github.com/positlabs/exo-skeleton",
   "devDependencies": {
     "grunt-cli": "~0.1.9",
     "bower": "~1.1.0",
-    "grunt-targethtml": "~0.2.4",
+    "grunt-targethtml": "~0.2.6",
     "grunt-contrib-watch": "~0.5.3",
     "grunt-contrib-less": "~0.7.0",
     "grunt-contrib-jade": "~0.8.0",
     "grunt-php": "~0.2.0",
     "grunt-contrib-connect": "~0.5.0"
-  },
-  "scripts": {
-    "postinstall": "bower install"
   }
 }

@@ -1,6 +1,17 @@
 exo-skeleton
 ============
-`npm install` to grab all dependencies (node modules and bower components).
+Project scaffolding for web apps. It also comes with some optional goodies.
+
+
+Using exo-skeleton
+-----------------
+Use Yeoman to generate the exo-skeleton scaffolding. There is no need to fork this repository.
+
+Install the generator.
+`npm install -g generator-exo-skeleton`
+
+cd to the empty project directory, then run the generator.
+`yo exo-skeleton`
 
 
 Grunt tasks

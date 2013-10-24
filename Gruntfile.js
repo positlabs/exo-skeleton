@@ -3,6 +3,10 @@
 module.exports = function (grunt) {
 
 	grunt.initConfig({
+		dist: {
+			debug: "dist/debug/",
+			release: "dist/release/"
+		},
 		connect: {
 			server: {
 				options: {
@@ -64,6 +68,19 @@ module.exports = function (grunt) {
 				dest: "app/styles",
 				ext: ".css"
 			}
+		},
+
+		targethtml: {
+			debug: {
+				files: {
+					'<%= dist.debug %>index.html': 'index.html'
+				}
+			},
+			release: {
+				files: {
+					'<%= dist.release %>index.html': 'index.html'
+				}
+			}
 		}
 
 	});
@@ -74,7 +91,10 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jade');
 	grunt.loadNpmTasks('grunt-contrib-connect');
 
-	// start watching. do initial pre-process of files
+	// building the project
+	grunt.loadNpmTasks("grunt-targethtml");
+
+	// start watching files. also does initial pre-process of files
 	grunt.registerTask("watcher", ["jade", "less", "watch"]);
 	grunt.registerTask("server", ["connect"]);
 
