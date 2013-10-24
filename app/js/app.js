@@ -2,7 +2,7 @@ define(function (require, exports, module) {
 
 	// External dependencies.
 	var constants = require('../data/constants');
-	var Webapp = require('Webapp');
+	var Webapp = require('util/extensions/Webapp');
 	var Tracking = require("services/Tracking");
 	var Router = require("router");
 
