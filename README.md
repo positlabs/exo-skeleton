@@ -12,7 +12,7 @@ Grunt tasks
 
 Included in exo-skeleton
 ------------------
-LESS CSS: http://lesscss.org/
-JADE HTML: http://jade-lang.com/reference/
-Underscore: http://underscorejs.org
-jQuery: http://jquery.com/
+* LESS CSS: http://lesscss.org/
+* JADE HTML: http://jade-lang.com/reference/
+* Underscore: http://underscorejs.org
+* jQuery: http://jquery.com/
