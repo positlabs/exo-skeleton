@@ -7,6 +7,7 @@ module.exports = function (grunt) {
 			server: {
 				options: {
 					port: 8888,
+					hostname:'localhost',
 					base: 'app/',
 					keepalive:true,
 					open:true
@@ -78,7 +79,7 @@ module.exports = function (grunt) {
 	grunt.registerTask("server", ["connect"]);
 
 	// start server, watch files
-	grunt.registerTask("default", ["watch"]);
+//	grunt.registerTask("default", ["watch"]);
 
 	//TODO - compiling
 

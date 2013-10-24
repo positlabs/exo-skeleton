@@ -1,7 +1,6 @@
 exo-skeleton
 ============
-TODO: write about all of the stuff that exo-skeleton comes with
-TODO: pull components from FJ
+`npm install` to grab all dependencies (node modules and bower components).
 
 
 Grunt tasks
@@ -10,11 +9,10 @@ Grunt tasks
 
 `grunt server`: starts a local server and opens a page to view the project on
 
-LESS CSS
-------------------
-http://lesscss.org/
 
-
-Jade HTML
+Included in exo-skeleton
 ------------------
-http://jade-lang.com/reference/
+LESS CSS: http://lesscss.org/
+JADE HTML: http://jade-lang.com/reference/
+Underscore: http://underscorejs.org
+jQuery: http://jquery.com/

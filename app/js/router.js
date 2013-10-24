@@ -7,6 +7,8 @@ define(function (require, exports, module) {
 	var Index = require('views/Index');
 	var Tracking = require('services/Tracking');
 
+	conditionizr({});
+
 	// Defining the application router, you can attach sub routers here.
 	var Router = Backbone.Router.extend({
 		routes: {
