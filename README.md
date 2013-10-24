@@ -7,11 +7,11 @@ Using exo-skeleton
 -----------------
 Use Yeoman to generate the exo-skeleton scaffolding. There is no need to fork this repository.
 
-Install the generator.
-`npm install -g generator-exo-skeleton`
+1. Install the generator.
+  `npm install -g generator-exo-skeleton`
 
-cd to the empty project directory, then run the generator.
-`yo exo-skeleton`
+2. cd to the empty project directory, then run the generator.
+  `yo exo-skeleton`
 
 
 Grunt tasks
