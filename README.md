@@ -12,6 +12,8 @@ Grunt tasks
 
 Included in exo-skeleton
 ------------------
+* Backbone: http://backbonejs.org
+* LayoutManager: https://layoutmanager.org
 * LESS CSS: http://lesscss.org/
 * JADE HTML: http://jade-lang.com/reference/
 * Underscore: http://underscorejs.org
