@@ -7,7 +7,7 @@ require.config({
 		"backbone.layoutmanager": "bower/layoutmanager/backbone.layoutmanager",
 		"underscore": "bower/underscore-amd/underscore",
 		"modernizr": "bower/modernizr/modernizr",
-		"conditionizr": "bower/conditionizr/src/conditionizr",
+		"conditionizr": "bower/conditionizr/dist/conditionizr",
 		"jade": "../../node_modules/jade/runtime"
 
 	},
