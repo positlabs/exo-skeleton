@@ -1,9 +1,6 @@
 define(function (require, exports, module) {
 
-	require("modernizr");
-	require("conditionizr");
-
-	var browser = _.extend({}, Modernizr);
+	var browser = {};
 
 	// get vendor prefixes
 	browser.vendor = (function () {

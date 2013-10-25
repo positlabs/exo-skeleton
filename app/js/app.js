@@ -1,6 +1,8 @@
 define(function (require, exports, module) {
 
-	// External dependencies.
+	require("modernizr");
+	require("conditionizr");
+
 	var constants = require('../data/constants');
 	var Webapp = require('util/extensions/Webapp');
 	var Tracking = require("services/Tracking");
@@ -28,34 +30,6 @@ define(function (require, exports, module) {
 	app.dataRoot = "data/";
 	app.constants = constants;
 
-	//--------------------------------------------------------------------------------
-	// Screen dimension Calculations
-	//--------------------------------------------------------------------------------
-
-	app.getMediaSize = function (dimensions) {
-		var width = dimensions.width;
-		if (width < 500) {
-			return 360;
-		} else if (width < 711) {
-			return 640;
-		} else if (width < 1066) {
-			return 854;
-		} else if (width < 1682) {
-			return 1280;
-		} else {
-			return 1920;
-		}
-	};
-
-	app.getOrientation = function () {
-		return Math.abs(window.orientation) - 90 == 0 ? "landscape" : "portrait";
-	};
-	app.getMobileWidth = function () {
-		return app.getOrientation() == "landscape" ? screen.availHeight : screen.availWidth;
-	};
-	app.getMobileHeight = function () {
-		return app.getOrientation() == "landscape" ? screen.availWidth : screen.availHeight;
-	};
 
 	//--------------------------------------------------------------------------------
 	// Event handlers

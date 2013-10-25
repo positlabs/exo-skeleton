@@ -19,16 +19,10 @@ define(["require_config"], function (config) {
 		window.jade = jade;
 		window.Backbone = Backbone;
 
-		// Configure LayoutManager with Backbone Boilerplate defaults.
 		Backbone.Layout.configure({
 			// Allow LayoutManager to augment Backbone.View.prototype.
 			manage: true,
-			fetch: function (path) {
-				console.log("fetch."+"fetch()", arguments);
-				return JST[path];
-			},
-			fetchTemplate:function(path){
-				console.log("fetchTemplate."+"fetchTemplate()", arguments);
+			fetchTemplate: function (path) {
 				return JST[path];
 			}
 		});
@@ -37,6 +31,7 @@ define(["require_config"], function (config) {
 			dataType: "json",
 			url: "data/copy_en.json"
 		}).done(function (response) {
+				// TODO - make app.copy an instance of BB.Model
 				app.copy = response;
 				app.initialize();
 			}).fail(function (response) {

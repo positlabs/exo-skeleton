@@ -1,6 +1,7 @@
 define(function (require, exports, module) {
 
 	// main app container.
+	// doesn't do anything except serve as a receptacle for other views.
 
 	var View = Backbone.View.extend({
 

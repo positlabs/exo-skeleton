@@ -1,12 +1,18 @@
 define(function (require, exports, module) {
 
+	/**
+	 *
+	 *  A view stub.
+	 *
+	 */
+
 	var index = Backbone.View.extend({
 
 		// template file relative to app/templates
+		id:"index",
 		template: "index",
 		tagName: "div",
 		className: "view",
-		id:"index",
 		events:{
 			// http://backbonejs.org/#Events-catalog
 			"click":"onClick",
