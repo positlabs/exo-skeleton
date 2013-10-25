@@ -3,23 +3,53 @@
 module.exports = function (grunt) {
 
 	grunt.initConfig({
-		dist: {
-			debug: "dist/debug/",
-			release: "dist/release/"
+
+		yeoman: {
+			app:"app/",
+			dist: "dist/"
 		},
+
+		concurrent:{
+			server:[
+				"connect",
+				"watcher"
+			]
+		},
+
 		connect: {
-			server: {
+			options: {
+				// change this to '0.0.0.0' to access the server from outside
+				hostname:'localhost',
+				port: 8888,
+				livereload: 35729,
+				base: 'app/',
+				keepalive:true,
+				open:true
+			},
+			livereload: {
 				options: {
-					port: 8888,
-					hostname:'localhost',
-					base: 'app/',
-					keepalive:true,
-					open:true
+					base: [
+						'.tmp',
+						'<%= yeoman.app %>'
+					]
+				}
+			},
+			test: {
+				options: {
+					base: [
+						'.tmp',
+						'test',
+						'<%= yeoman.app %>'
+					]
+				}
+			},
+			dist: {
+				options: {
+					base: '<%= yeoman.dist %>'
 				}
 			}
 		},
-		// run grunt watcher.
-		// handles stuff that needs pre-processing
+
 		watch: {
 			css: {
 				files: [
@@ -35,6 +65,17 @@ module.exports = function (grunt) {
 				],
 				tasks: "jade"
 			}
+//			livereload: {
+//				options: {
+//					livereload: '<%= connect.server.options.livereload %>'
+//				},
+//				files: [
+//					'<%= yeoman.app %>/*.html',
+//					'.tmp/styles/{,*/}*.css',
+//					'{.tmp,<%= yeoman.app %>}/js/{,*/}*.js',
+//					'<%= yeoman.app %>/assets/imgs/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+//				]
+//			}
 		},
 
 		jade: {
@@ -70,37 +111,119 @@ module.exports = function (grunt) {
 			}
 		},
 
-		targethtml: {
-			debug: {
-				files: {
-					'<%= dist.debug %>index.html': 'index.html'
-				}
+		clean: {
+			dist: {
+				files: [{
+					dot: true,
+					src: [
+						'.tmp',
+						'<%= yeoman.dist %>/*',
+						'!<%= yeoman.dist %>/.git*'
+					]
+				}]
 			},
+			server: '.tmp'
+		},
+
+//		requirejs: {
+//			dist: {
+//				// Options: https://github.com/jrburke/r.js/blob/master/build/example.build.js
+//				options: {
+//					// `name` and `out` is set by grunt-usemin
+//					baseUrl: '<%= yeoman.app %>/js',
+//					optimize: 'none',
+//					preserveLicenseComments: false,
+//					useStrict: true,
+//					wrap: true
+//					//uglify2: {} // https://github.com/mishoo/UglifyJS2
+//				}
+//			}
+//		},
+
+		// This task uses James Burke's excellent r.js AMD builder to take all
+		// modules and concatenate them into a single file.
+		requirejs: {
+			debug: {
+				options: {
+					// Include the main ration file.
+					mainConfigFile: "app/require_config.js",
+
+					// Output file.
+					out: "<%= yeoman.dist %>source.js",
+
+					// Root application module.
+					name: "config",
+
+					// Include the main application.
+					insertRequire: ["index"],
+
+					// This will ensure the application runs after being built.
+					include: [
+						"index",
+						"router"
+					],
+
+					// Wrap everything in an IIFE.
+					wrap: true
+				}
+			}
+		},
+
+		imagemin:{
+			//TODO: configure
+//			https://github.com/gruntjs/grunt-contrib-imagemin
+		},
+
+		targethtml: {
 			release: {
 				files: {
-					'<%= dist.release %>index.html': 'index.html'
+					'<%= yeoman.dist %>index.html': 'index.html'
 				}
 			}
 		}
 
 	});
 
-	// Grunt contribution tasks.
 	grunt.loadNpmTasks("grunt-contrib-watch");
 	grunt.loadNpmTasks("grunt-contrib-less");
 	grunt.loadNpmTasks('grunt-contrib-jade');
 	grunt.loadNpmTasks('grunt-contrib-connect');
-
-	// building the project
+	grunt.loadNpmTasks("grunt-contrib-clean");
+	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-imagemin');
 	grunt.loadNpmTasks("grunt-targethtml");
+	grunt.loadNpmTasks('grunt-concurrent');
+	grunt.loadNpmTasks('grunt-modernizr');
+
 
 	// start watching files. also does initial pre-process of files
 	grunt.registerTask("watcher", ["jade", "less", "watch"]);
-	grunt.registerTask("server", ["connect"]);
 
-	// start server, watch files
-//	grunt.registerTask("default", ["watch"]);
+	grunt.registerTask("server", ["concurrent:server"]);
 
-	//TODO - compiling
+	// The release task will first run the debug tasks.  Following that, minify
+	// the built JavaScript and then minify the built CSS.
+	grunt.registerTask('build', [
+		"jade",
+		"less",
+		'clean:dist',
+		'concurrent:dist',
+		'requirejs',
+		'concat',
+		'cssmin',
+		'uglify',
+		'modernizr',
+		'copy:dist',
+		'rev',
+		"targethtml:release"
+	]);
+
+	// https://npmjs.org/package/grunt-ftpush
+//	grunt.registerTask('deploy', []);
+
+	grunt.registerTask("default", [
+		"build",
+		"deploy"
+	]);
 
 };
