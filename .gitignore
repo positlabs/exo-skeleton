@@ -5,3 +5,4 @@ app/styles/*.css
 app/templates/compiled/
 .DS_Store
 .idea/
+.ftppass

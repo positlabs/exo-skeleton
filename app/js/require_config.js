@@ -8,7 +8,8 @@ require.config({
 		"underscore": "bower/underscore-amd/underscore",
 		"modernizr": "bower/modernizr/modernizr",
 		"conditionizr": "bower/conditionizr/dist/conditionizr",
-		"jade": "../../node_modules/jade/runtime"
+		"jade": "bower/jade/runtime",
+		"jade_jst": "../templates/jade_jst"
 
 	},
 	shim:{

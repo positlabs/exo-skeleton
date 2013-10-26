@@ -4,6 +4,7 @@ module.exports = function (grunt) {
 
 	// point to your stuff!
 	var yeoman = {
+		almond: "app/js/bower/almond/almond",
 		require_config: "app/js/require_config",
 
 		dist: "dist/",
@@ -36,12 +37,12 @@ module.exports = function (grunt) {
 		connect: {
 			options: {
 				// change this to '0.0.0.0' to access the server from outside
-				hostname:'localhost',
+				hostname: 'localhost',
 				port: 8888,
 				livereload: 35729,
 				base: yeoman.app,
-				keepalive:true,
-				open:true
+				keepalive: true,
+				open: true
 			},
 			livereload: {
 				options: {
@@ -79,15 +80,31 @@ module.exports = function (grunt) {
 		// https://github.com/gruntjs/grunt-contrib-jade
 		// TODO - make debug / dist options
 		jade: {
-			compile: {
+			debug: {
+				options: {
+					compileDebug: true,
+					data: {
+						debug: true
+					},
+					client: true, // compile to jst, not html
+					processName: function (filename) {
+						// give the JST a key that's relative to templates directory
+						return filename.replace(yeoman.templates, '').replace('.jade', '');
+					}
+				},
+				files: {
+					"app/templates/jade_jst.js": [yeoman.templates + "/*.jade"]
+				}
+			},
+			dist: {
 				options: {
 					compileDebug: false,
 					data: {
 						debug: false
 					},
-					client: true,
+					client: true, // compile to jst, not html
 					processName: function (filename) {
-						// give the JST a key that's relative to app/templates
+						// give the JST a key that's relative to templates directory
 						return filename.replace(yeoman.templates, '').replace('.jade', '');
 					}
 				},
@@ -117,7 +134,7 @@ module.exports = function (grunt) {
 		},
 
 		// Put files not handled in other tasks here
-		//TODO - configure
+		// https://github.com/gruntjs/grunt-contrib-copy
 		copy: {
 			dist: {
 				files: [
@@ -129,22 +146,14 @@ module.exports = function (grunt) {
 						src: [
 							'*.{ico,txt}',
 							'.htaccess',
-							yeoman.data, ,
-							yeoman.fonts,
-							yeoman.sounds,
-							yeoman.videos
+							yeoman.data.replace(yeoman.app, "") + "**/*",
+							yeoman.fonts.replace(yeoman.app, "") + "**/*",
+							yeoman.sounds.replace(yeoman.app, "") + "**/*",
+							yeoman.videos.replace(yeoman.app, "") + "**/*"
 						]
 					}
 				]
-			}//,
-			// what is this for?
-//			styles: {
-//				expand: true,
-//				dot: true,
-//				cwd: '<%= yeoman.app %>/styles',
-//				dest: '.tmp/styles/',
-//				src: '{,*/}*.css'
-//			}
+			}
 		},
 
 		// This task uses James Burke's excellent r.js AMD builder to take all
@@ -159,7 +168,7 @@ module.exports = function (grunt) {
 					out: yeoman.dist + "/source.js",
 
 					// Root application module.
-					name: "master",
+					name: "bower/almond/almond",
 
 					// Include the main application.
 					insertRequire: ["master"],
@@ -195,7 +204,8 @@ module.exports = function (grunt) {
 				files: [
 					{
 						expand: true,
-						src: [yeoman.images + '/*.{png,jpg,gif}'],
+						cwd: yeoman.app,
+						src: [yeoman.images.replace(yeoman.app, "") + '/*.{png,jpg,gif}'],
 						dest: yeoman.dist
 					}
 				]
@@ -206,10 +216,39 @@ module.exports = function (grunt) {
 		targethtml: {
 			dist: {
 				files: {
-					'<%= yeoman.dist %>index.html': 'index.html'
+					'<%= yeoman.dist %>index.html': yeoman.app + 'index.html'
 				}
 			}
+		},
+
+		// https://npmjs.org/package/grunt-ftpush
+		// username / passwords need to be stored in .ftppass
+		//		{
+		//			"key1": {
+		//			"username": "username1",
+		//				"password": "password1"
+		//		}
+		ftpush: {
+			dist: {
+				auth: {
+					host: 'toolofnadrive.com',
+					port: 21,
+					authKey: 'key1'
+				},
+				src: yeoman.dist,
+				dest: "subdomains/josh-dev/exo-skeleton/"
+//				exclusions: ['path/to/source/folder/**/.DS_Store', 'path/to/source/folder/**/Thumbs.db', 'dist/tmp'],
+//				keep: ['/important/images/at/server/*.jpg']
+			}
+		},
+
+		// https://github.com/jsoverson/grunt-open
+		open: {
+			dist: {
+				path: 'http://josh-dev.toolofnadrive.com/exo-skeleton'
+			}
 		}
+
 
 	};
 
@@ -224,9 +263,13 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-imagemin');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
+	grunt.loadNpmTasks('grunt-contrib-copy');
+
 	grunt.loadNpmTasks("grunt-targethtml");
 	grunt.loadNpmTasks('grunt-concurrent');
 	grunt.loadNpmTasks('grunt-modernizr');
+	grunt.loadNpmTasks('grunt-ftpush');
+	grunt.loadNpmTasks('grunt-open');
 
 
 	/**
@@ -237,7 +280,7 @@ module.exports = function (grunt) {
 
 		// start watching files. also does an initial batch process of target files
 	grunt.registerTask("watcher", [
-		"jade",
+		"jade:debug",
 		"less",
 		"watch"
 	]);
@@ -248,19 +291,19 @@ module.exports = function (grunt) {
 	// The release task will first run the debug tasks.  Following that, minify
 	// the built JavaScript and then minify the built CSS.
 	grunt.registerTask('build', [
-		"jade",
+		"jade:dist",
 		"less",
 		'clean:dist',
 		'requirejs',
 		'cssmin',
-		'modernizr',
+//		'modernizr',
 		'copy:dist',
 		"imagemin",
 		"targethtml:dist"
 	]);
 
 	// https://npmjs.org/package/grunt-ftpush
-	// grunt.registerTask('deploy', []);
+	grunt.registerTask('deploy', ["ftpush:dist", "open:dist"]);
 
 	grunt.registerTask("default", [
 		"build",

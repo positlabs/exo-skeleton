@@ -13,7 +13,10 @@
     "conditionizr": "*",
     "html5-boilerplate": "https://github.com/h5bp/html5-boilerplate.git#~4.3.0",
     "backbone-amd": "~1.0.0",
-    "underscore-amd": "~1.5.2"
+    "underscore-amd": "~1.5.2",
+    "jade": "~0.35.0"
+  },
+  "devDependencies": {
+    "almond": "~0.2.6"
   }
 }
-

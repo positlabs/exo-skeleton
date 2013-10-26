@@ -2,17 +2,18 @@
 
 define(["require_config"], function (config) {
 
+
 	var mm = require([
 		"app",
 		"router",
 		"underscore",
 		"jquery",
 		"backbone",
-		"../templates/runtime",
-		"../templates/jade_jst",
+		"jade",
+		"jade_jst",
 		"backbone.layoutmanager"
 
-	], function (app, Router, _, $, Backbone, jade, jst) {
+	], function (app, Router, _, $, Backbone, jade, JST) {
 
 		window._ = _;
 		window.$ = $;
