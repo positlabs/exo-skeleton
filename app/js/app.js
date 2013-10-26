@@ -7,17 +7,10 @@ define(function (require, exports, module) {
 	var Webapp = require('util/extensions/Webapp');
 	var Tracking = require("services/Tracking");
 	var Router = require("router");
-
 	var Backbone = require("backbone");
-	var Layout = require("backbone.layoutmanager");
-
 	var MainView = require("views/Main");
 
-
 	Tracking.init();
-
-	// Provide a global location to place configuration settings and module
-	// creation.
 
 	window.$window = $(window);
 	window.$body = $(document.body);
@@ -65,7 +58,6 @@ define(function (require, exports, module) {
 			});
 		});
 		app.main.render();
-
 
 	};
 
