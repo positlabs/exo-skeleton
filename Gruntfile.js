@@ -91,9 +91,10 @@ module.exports = function (grunt) {
 						// give the JST a key that's relative to templates directory
 						return filename.replace(yeoman.templates, '').replace('.jade', '');
 					}
+					// amd:true
 				},
 				files: {
-					"app/templates/jade_jst.js": [yeoman.templates + "/*.jade"]
+					"<%= yeoman.scripts %>views/jade_jst.js": [yeoman.templates + "/*.jade"]
 				}
 			},
 			dist: {

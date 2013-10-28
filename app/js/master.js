@@ -13,8 +13,7 @@ define(["require_config"], function (config) {
 		"jade_jst",
 		"backbone.layoutmanager"
 
-	], function (app, Router, _, $, Backbone, jade, JST) {
-
+	], function (app, Router, _, $, Backbone, jade) {
 		window._ = _;
 		window.$ = $;
 		window.jade = jade;

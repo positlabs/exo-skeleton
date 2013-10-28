@@ -9,7 +9,7 @@ require.config({
 		"modernizr": "bower/modernizr/modernizr",
 		"conditionizr": "bower/conditionizr/dist/conditionizr",
 		"jade": "bower/jade/runtime",
-		"jade_jst": "../templates/jade_jst"
+		"jade_jst": "views/jade_jst"
 
 	},
 	shim:{
