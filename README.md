@@ -2,6 +2,7 @@ exo-skeleton
 ============
 Project scaffolding for web apps. It also comes with some optional goodies.
 
+![alt tag](https://raw.github.com/positlabs/exo-skeleton/master/app/assets/imgs/exo-logo_120.png)
 
 Using exo-skeleton
 -----------------
