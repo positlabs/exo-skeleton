@@ -1,5 +1,3 @@
-// Grunt ration updated to latest Grunt.  That means your minimum
-// version necessary to run these tasks is Grunt 0.4.
 module.exports = function (grunt) {
 
 	// point to your stuff!
@@ -28,13 +26,13 @@ module.exports = function (grunt) {
 		// https://github.com/sindresorhus/grunt-concurrent
 		concurrent: {
 			server: [
-				"connect",
+				"php:dev",
 				"watcher"
 			]
 		},
 
-		// https://github.com/gruntjs/grunt-contrib-connect
-		connect: {
+		// https://github.com/sindresorhus/grunt-php
+		php: {
 			options: {
 				// change this to '0.0.0.0' to access the server from outside
 				hostname: 'localhost',
@@ -44,11 +42,9 @@ module.exports = function (grunt) {
 				keepalive: true,
 				open: true
 			},
-			livereload: {
+			dev: {
 				options: {
-					base: [
-						yeoman.app
-					]
+					base: yeoman.app
 				}
 			},
 			dist: {
@@ -243,13 +239,16 @@ module.exports = function (grunt) {
 				},
 				src: yeoman.dist,
 				dest: "subdomains/josh-dev/exo-skeleton/"
-//				exclusions: ['path/to/source/folder/**/.DS_Store', 'path/to/source/folder/**/Thumbs.db', 'dist/tmp'],
-//				keep: ['/important/images/at/server/*.jpg']
+				// exclusions: ['path/to/source/folder/**/.DS_Store', 'path/to/source/folder/**/Thumbs.db', 'dist/tmp'],
+				// keep: ['/important/images/at/server/*.jpg']
 			}
 		},
 
 		// https://github.com/jsoverson/grunt-open
 		open: {
+			dev:{
+				path: "http://localhost:<%= php.options.port %>"
+			},
 			dist: {
 				path: 'http://josh-dev.toolofnadrive.com/exo-skeleton'
 			}
@@ -264,18 +263,18 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks("grunt-contrib-watch");
 	grunt.loadNpmTasks("grunt-contrib-less");
 	grunt.loadNpmTasks('grunt-contrib-jade');
-	grunt.loadNpmTasks('grunt-contrib-connect');
+	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks("grunt-contrib-clean");
 	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-contrib-imagemin');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
-	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-imagemin');
 
+	grunt.loadNpmTasks('grunt-php');
+	grunt.loadNpmTasks('grunt-open');
+	grunt.loadNpmTasks('grunt-ftpush');
+	grunt.loadNpmTasks('grunt-modernizr');
 	grunt.loadNpmTasks("grunt-targethtml");
 	grunt.loadNpmTasks('grunt-concurrent');
-	grunt.loadNpmTasks('grunt-modernizr');
-	grunt.loadNpmTasks('grunt-ftpush');
-	grunt.loadNpmTasks('grunt-open');
 
 
 	/**
@@ -284,7 +283,7 @@ module.exports = function (grunt) {
 	 *
 	 */
 
-		// start watching files. also does an initial batch process of target files
+	// start watching files. also does an initial batch process of target files
 	grunt.registerTask("watcher", [
 		"jade:debug",
 		"less",
@@ -292,7 +291,16 @@ module.exports = function (grunt) {
 	]);
 
 	// start watching files, start a server
-	grunt.registerTask("server", ["concurrent:server"]);
+	grunt.registerTask("server", [
+		"open:dev",
+		"concurrent:server"
+	]);
+
+	// save as above, but points to dist version
+	grunt.registerTask("server:dist", [
+		"open:dev",
+		"php:dist"
+	]);
 
 	// The release task will first run the debug tasks.  Following that, minify
 	// the built JavaScript and then minify the built CSS.
@@ -308,7 +316,10 @@ module.exports = function (grunt) {
 	]);
 
 	// https://npmjs.org/package/grunt-ftpush
-	grunt.registerTask('deploy', ["ftpush:dist", "open:dist"]);
+	grunt.registerTask('deploy', [
+		"ftpush:dist",
+		"open:dist"
+	]);
 
 	grunt.registerTask("default", [
 		"build",
