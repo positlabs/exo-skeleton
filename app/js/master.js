@@ -1,11 +1,9 @@
 // entry point for requirejs
+define(["require_config"], function () {
 
-define(["require_config"], function (config) {
+	require([
 
-
-	var mm = require([
 		"app",
-		"router",
 		"underscore",
 		"jquery",
 		"backbone",
@@ -13,14 +11,14 @@ define(["require_config"], function (config) {
 		"jade_jst",
 		"backbone.layoutmanager"
 
-	], function (app, Router, _, $, Backbone, jade) {
+	], function (app, _, $, Backbone, jade) {
+
+		window.jade = jade;
 		window._ = _;
 		window.$ = $;
-		window.jade = jade;
 		window.Backbone = Backbone;
 
 		Backbone.Layout.configure({
-			// Allow LayoutManager to augment Backbone.View.prototype.
 			manage: true,
 			fetchTemplate: function (path) {
 				return JST[path];
@@ -31,8 +29,7 @@ define(["require_config"], function (config) {
 			dataType: "json",
 			url: "data/copy_en.json"
 		}).done(function (response) {
-				// TODO - make app.copy an instance of BB.Model
-				app.copy = response;
+				app.copy = new Backbone.Model(response);
 				app.initialize();
 			}).fail(function (response) {
 				console.error("Failed to get Site Copy: ", response.responseText);

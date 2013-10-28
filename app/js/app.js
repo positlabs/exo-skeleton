@@ -17,7 +17,7 @@ define(function (require, exports, module) {
 	window.$html = $('html');
 
 	var app = _.extend({}, Backbone.Events);
-	window.app = app;
+	window.app = app; // for debugging
 
 	app.root = "/";
 	app.dataRoot = "data/";
@@ -47,10 +47,7 @@ define(function (require, exports, module) {
 	app.initialize = function () {
 		app.onResize();
 
-		// Define your master router on the application namespace and trigger all
-		// navigation from this instance.
 		app.router = new Router();
-
 		app.main = new MainView();
 		app.main.once('afterRender', function(){
 			Backbone.history.start({

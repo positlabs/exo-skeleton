@@ -176,10 +176,16 @@ module.exports = function (grunt) {
 
 					// This will ensure the application runs after being built.
 					include: [
+
 						"app",
 						"master",
 						"router",
-						"views/Main"
+						"views/Main",
+						"jade",
+						"jade_jst",
+						"backbone",
+						"backbone.layoutmanager"
+
 					]
 				}
 			}
@@ -297,7 +303,6 @@ module.exports = function (grunt) {
 		'clean:dist',
 		'requirejs',
 		'cssmin',
-//		'modernizr',
 		'copy:dist',
 		"imagemin",
 		"targethtml:dist"
