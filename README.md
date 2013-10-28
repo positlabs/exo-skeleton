@@ -18,7 +18,14 @@ Grunt tasks
 ------------------
 `grunt watcher`: watch files that need to be pre-processed (.less, .jade).
 
-`grunt server`: starts a local server and opens a page to view the project on
+`grunt server`: starts a local server, watches files, and opens a page to view the project on
+
+`grunt build`: builds a distributable version of the site
+
+`grunt deploy`: uploads the site to a server
+
+`grunt`: builds and deploys
+
 
 
 Included in exo-skeleton

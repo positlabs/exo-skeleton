@@ -78,7 +78,6 @@ module.exports = function (grunt) {
 		},
 
 		// https://github.com/gruntjs/grunt-contrib-jade
-		// TODO - make debug / dist options
 		jade: {
 			debug: {
 				options: {
@@ -94,7 +93,7 @@ module.exports = function (grunt) {
 					// amd:true
 				},
 				files: {
-					"<%= yeoman.scripts %>views/jade_jst.js": [yeoman.templates + "/*.jade"]
+					"<%= yeoman.templates %>jade_jst.js": [yeoman.templates + "/*.jade"]
 				}
 			},
 			dist: {
@@ -110,7 +109,7 @@ module.exports = function (grunt) {
 					}
 				},
 				files: {
-					"app/templates/jade_jst.js": [yeoman.templates + "/*.jade"]
+					"<%= yeoman.templates %>jade_jst.js": [yeoman.templates + "/*.jade"]
 				}
 			}
 		},

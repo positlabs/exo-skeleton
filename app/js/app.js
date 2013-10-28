@@ -15,12 +15,11 @@ define(function (require, exports, module) {
 	window.$window = $(window);
 	window.$body = $(document.body);
 	window.$html = $('html');
+	window.$main = $('#main');
 
 	var app = _.extend({}, Backbone.Events);
-	window.app = app; // for debugging
+	window.app = app;
 
-	app.root = "/";
-	app.dataRoot = "data/";
 	app.constants = constants;
 
 
