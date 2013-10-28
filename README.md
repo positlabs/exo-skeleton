@@ -1,4 +1,4 @@
-![alt tag](https://raw.github.com/positlabs/exo-skeleton/master/app/assets/imgs/exo-logo_64.png)
+![alt tag](https://raw.github.com/positlabs/exo-skeleton/master/app/assets/imgs/exo-logo_120.png)
 
 exo-skeleton
 ============
