@@ -3,7 +3,6 @@ define(function (require, exports, module) {
 	require("util/extensions/requestAnimationFrame");
 
 	var FrameImpulse = function(callback){
-		console.log("FrameImpulse."+"FrameImpulse()", arguments);
 
 		var id;
 		function fire(){
@@ -16,6 +15,8 @@ define(function (require, exports, module) {
 		this.cancel = function(){
 			window.cancelAnimationFrame(id);
 		};
+
+		this.resume = fire;
 
 		fire();
 

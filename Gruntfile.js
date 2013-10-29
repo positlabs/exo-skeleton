@@ -292,6 +292,8 @@ module.exports = function (grunt) {
 
 	// start watching files, start a server
 	grunt.registerTask("server", [
+		"less",
+		"jade",
 		"open:dev",
 		"concurrent:server"
 	]);
