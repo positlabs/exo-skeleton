@@ -3,7 +3,7 @@
     "grunt": "~0.4.1"
   },
   "name": "exo-skeleton",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "repository": "https://github.com/positlabs/exo-skeleton",
   "devDependencies": {
     "grunt-cli": "~0.1.9",

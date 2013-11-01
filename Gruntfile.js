@@ -40,7 +40,8 @@ module.exports = function (grunt) {
 				livereload: 35729,
 				base: yeoman.app,
 				keepalive: true,
-				open: true
+				open: true,
+				router: 'router.php'
 			},
 			dev: {
 				options: {
@@ -227,8 +228,9 @@ module.exports = function (grunt) {
 		// username / passwords need to be stored in .ftppass
 		//		{
 		//			"key1": {
-		//			"username": "username1",
+		//			    "username": "username1",
 		//				"password": "password1"
+		//  		}
 		//		}
 		ftpush: {
 			dist: {
