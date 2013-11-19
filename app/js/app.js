@@ -1,8 +1,5 @@
 define(function (require, exports, module) {
 
-	require("modernizr");
-	require("conditionizr");
-
 	var constants = require('../data/constants');
 	var Webapp = require('util/extensions/Webapp');
 	var Tracking = require("services/Tracking");

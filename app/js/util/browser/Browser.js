@@ -1,5 +1,39 @@
 define(function (require, exports, module) {
 
+	require("modernizr");
+	require(["conditionizr"], function(){
+		require("conditionizr.chrome");
+		require("conditionizr.firefox");
+		require("conditionizr.safari");
+		require("conditionizr.ios");
+		require("conditionizr.retina");
+		require("conditionizr.mac");
+		require("conditionizr.windows");
+		require("conditionizr.linux");
+		require("util/browser/tests/android");
+		require("util/browser/tests/iosVersion");
+
+		var config = {tests:{}},
+			classes = [
+				'firefox',
+				'chrome',
+				'safari',
+				'android',
+				'ios',
+				'retina',
+				'mac',
+				'windows',
+				'linux'
+			];
+
+		for (var i = 0, maxi = classes.length; i < maxi; i++) {
+			config.tests[classes[i]] = ['class'];
+		}
+
+		conditionizr.config(config);
+	});
+
+
 	var browser = {};
 
 	// get vendor prefixes
@@ -25,7 +59,7 @@ define(function (require, exports, module) {
 	 *  @arg stateList: space-delimited list of states to check. i.e. 'ipad retina'
 	 *
 	 * */
-	browser.has = browser.is = function (stateList) {
+	browser.test = function (stateList) {
 		var $html = $("html");
 		var states = stateList.split(" ");
 		for (var i = 0, maxi = states.length; i < maxi; i++) {
