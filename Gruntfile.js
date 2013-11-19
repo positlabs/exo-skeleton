@@ -71,6 +71,18 @@ module.exports = function (grunt) {
 
 				],
 				tasks: "jade"
+			},
+			bower_json:{
+				files:[
+					"bower.json"
+				],
+				tasks: ["shell:bower_install"]
+			},
+			package_json:{
+				files:[
+					"package.json"
+				],
+				tasks: ["shell:npm_install"]
 			}
 		},
 
@@ -258,6 +270,22 @@ module.exports = function (grunt) {
 			dist: {
 				path: 'http://josh-dev.toolofnadrive.com/exo-skeleton'
 			}
+		},
+
+		// https://github.com/sindresorhus/grunt-shell
+		shell: {
+			npm_install:{
+				options: {
+					stdout: true
+				},
+				command: "npm install"
+			},
+			bower_install:{
+				options: {
+					stdout: true
+				},
+				command: "bower install"
+			}
 		}
 
 
@@ -275,6 +303,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-imagemin');
 
+	grunt.loadNpmTasks('grunt-shell');
 	grunt.loadNpmTasks('grunt-php');
 	grunt.loadNpmTasks('grunt-open');
 	grunt.loadNpmTasks('grunt-ftpush');
@@ -291,6 +320,7 @@ module.exports = function (grunt) {
 
 	// start watching files. also does an initial batch process of target files
 	grunt.registerTask("watcher", [
+		"shell",
 		"jade:debug",
 		"less",
 		"watch"
@@ -298,6 +328,7 @@ module.exports = function (grunt) {
 
 	// start watching files, start a server
 	grunt.registerTask("server", [
+		"shell",
 		"less",
 		"jade",
 		"open:dev",
