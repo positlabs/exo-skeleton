@@ -167,6 +167,10 @@ module.exports = function (grunt) {
 					// Root application module.
 					name: "bower/almond/almond",
 
+					// TODO - make dist / dev options that will minify / not minify
+//					optimize:"none",
+					optimize:"uglify2",
+
 					// Include the main application.
 					insertRequire: ["master"],
 
@@ -208,7 +212,7 @@ module.exports = function (grunt) {
 					{
 						expand: true,
 						cwd: yeoman.app,
-						src: [yeoman.images.replace(yeoman.app, "") + '/*.{png,jpg,gif}'],
+						src: [yeoman.images.replace(yeoman.app, "") + '/**/*.{png,jpg,gif}'],
 						dest: yeoman.dist
 					}
 				]

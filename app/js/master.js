@@ -16,6 +16,7 @@ define(["require_config"], function () {
 		window.jade = jade;
 		window._ = _;
 		window.$ = $;
+		window.app = app;
 		window.Backbone = Backbone;
 
 		Backbone.Layout.configure({

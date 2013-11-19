@@ -18,7 +18,6 @@ define(function (require, exports, module) {
 	window.$main = $('#main');
 
 	var app = _.extend({}, Backbone.Events);
-	window.app = app;
 
 	app.constants = constants;
 
